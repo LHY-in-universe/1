@@ -1,0 +1,433 @@
+\documentclass{article}
+
+\usepackage{CJKutf8}
+\usepackage{geometry}
+\geometry{a4paper,scale=0.8}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\begin{document}
+\begin{CJK}{UTF8}{bsmi}
+\title{微分幾何}
+\author{LHY}
+\date{\today}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Introduction to Topological Spaces}
+\subsection{Introduction to Set Theory}
+\subsubsection{Cartesian Product}
+$X \times Y :=\{(x,y)\ |\ x\in X, y \in Y\} $
+\\ 由X中的一個元素於Y中的一個元素組成的有序對
+\\ 可由此定義 $\mathbb{R}^2$ 以及 $\mathbb{R}^n$
+\subsubsection{Distance}
+For $x=(x^1,x^2,\cdots,x^n)$ and $y=(y^1,y^2,\cdots,y^n)$ in ${\mathbb{R}^n}$, the distance $|y-x|$ is $\sqrt{\sum_{i=1}^n{(y^i-x^i)^2}}$
+\subsubsection{Map}
+Map ($f:X\rightarrow Y$) 是一個法則, 給X的每一個元素指定Y的對應元素
+\\ $\clubsuit$ one-to-one: 任一 $y\in Y$ 有不多於一個逆像（可以沒有）
+\\ $\clubsuit$ onto: 任一 $y\in Y$ 都有逆像（可多餘一個）
+\subsection{Topological Spaces}
+$\Re$ 的子集分為開子集於非開子集（不是閉子集）\\
+開子集具有三個性質：
+\begin{itemize}
+  \item X本身與空集  $\varnothing$ 為開子集
+  \item 有限個開子集之交為開子集
+  \item 任一個（有限或無限）個開子集之並為開子集
+\end{itemize}
+\subsubsection{Topology $\mathscr{T}$}
+非空集合X的一個拓撲$\mathscr{T}$是X的若干開子集的集合,滿足：
+\begin{itemize}
+  \item $X, \varnothing \in \mathscr{T}$
+  \item If $O_i\in \mathscr{T}, i=1,2, \cdots, n$ , then $\bigcap_{i=1}^n O_i \in \mathscr{T}$
+  \item If $ \forall \ \alpha,O_{\alpha}\in \mathscr{T} $, then $\bigcup_\alpha O_\alpha \in  \mathscr{T}$
+\end{itemize}
+ \begin{description}
+  \item[離散拓撲 Discrete topology:]$\mathscr{T}$是X全部開子集的集合
+  \item[凝聚拓撲 Indiscrete topology:] $\mathscr{T}=\{X,\emptyset\}$
+  \item[通常拓撲 Usual topology:]$\mathscr{T}$ 表示空集或X中表示開區間之並的子集
+\end{description}
+\subsubsection{誘導拓撲 Induce Topology $\mathscr{S}$}
+設 $(X,\mathscr{T})$ 是拓撲空間, A是X的任一子集(可以是開子集·也可以是非開子集)。\\
+指定拓撲 $\mathscr{S}$ 使A成為拓撲空間,記為 $(A,\mathscr{S})$, 則 $\mathscr{S}$ 定義為: $$\mathscr{S}:={V \subset A \ |\ \exists \ O \in \mathscr{T}, V=A \bigcap O}  $$
+\subsubsection{同胚 Homeomorphism}
+拓撲空間 $(X,\mathscr{T}_x)$ 與 $(Y,\mathscr{T}_y)$ 稱為互相同胚(homeomorphic to each other),若 $\exists$ 映射 $f:=X\rightarrow Y$ ,滿足:
+\begin{itemize}
+  \item $f$ 是一一到上的
+  \item $f$ 與 $f^{-1}$ 都連續
+\end{itemize}
+這樣的f稱為  $(X,\mathscr{T}_x)$ 到 $(Y,\mathscr{T}_y)$  的同胚映射,簡稱同胚 (homeomorphism)
+\subsubsection{豪斯多夫空間 Hausdorff Space}
+$\forall\ x,y \in X,\ x\neq y\\\ \exists\ O_1, O_2 \in \mathscr{T}\\\ LET\  x \in O_1,y\in O_2 ,\ AND\ O_1 \bigcap O_2 =\varnothing$
+\newpage
+
+\section{Manifolds and Tensor Fields}
+\subsection{Differentiable Manifold}
+\begin{description}
+  \item[開覆蓋 Open cover:]X的開子集的集合 $\{O_\alpha\}$ 叫 $A \subset X$ 的一個開覆蓋,若 $A\subset \bigcup_\alpha O_\alpha$.也可以說$\{O_\alpha\}$ 覆蓋 A
+\end{description}
+\subsubsection{n-Dimensional Differentiable Manifold}
+若M有開覆蓋$\{O_\alpha\}$, 即$M= \bigcup_\alpha O_\alpha$, 滿足:
+\begin{itemize}
+  \item 對每一 $O_\alpha \exists$ 同胚 $\Psi_\alpha : O_\alpha \rightarrow V_\alpha $ 
+  \item 若 $O_\alpha \bigcap O_\beta \neq \varnothing $ ,則複合映射 $\Psi_\alpha \circ \Psi_\beta $ 是 $C^\infty$ 的 (相容性條件 Compatibility)
+\end{itemize}
+則拓撲空間M稱為n維微分流形, 簡稱n維流形.
+\\1. M作為拓撲空間, 元素本身並沒有座標, 但作為流形, M中位於 $O_\alpha$ 內的元素可以通過映射 $\Psi_\alpha$ 獲得座標.
+\\2. 若 $O_\alpha \bigcap O_\beta \neq \varnothing $ 則 $O_\alpha$ 內的點即可通過 $\Psi_\alpha$, 也可以通過 $\Psi_\alpha$ 獲得兩個一般來說不同的座標, 這就是座標係變換. 
+\\3. $(O_\alpha, \Psi_\alpha)$ 構成一個局域座標係, 其座標域為 $O_\alpha$, $(O_\beta,\Psi_\beta)$ 構成另一個局域座標係, 其座標域為 $O_\beta$.
+\\4. $O_\alpha \cap O_\beta$ 內的點至少有兩組座標, 分別記做 ${x^{\mu}}$ 和 $x^{'\nu}\ (\mu ,\ \nu  =1,2,\cdots n)$ . 
+\\5. 由映射 $\Psi_\beta \circ \Psi_\alpha^{-1}$ 提供的體現兩組座標關係的n個n元函數 $$x^{'1}=\phi (x^1,x^2,\cdots, x^n),\ \cdots, \ x^{'n}=\phi (x^1,x^2,\cdots, x^n) $$ 稱為一個座標變換 (Coordinate tranformation).
+\subsubsection{Chart and Atlas}
+座標係 $(O_\alpha, \Psi_\alpha)$ 在數學上叫做圖(Chart), 滿足定義的全體圖的集合 $\{(O_\alpha,\Psi_\alpha),\ \cdots ,(O_\beta,\Psi_\beta)\}$ 叫圖冊.
+\\由相容性條件, 一個圖冊的任意兩個圖都是相容的.
+\subsubsection{平凡流形 Trivial Manifold}
+能用一個座標域覆蓋的流形叫平凡流形
+\\若 $M=(\mathbb{R}^2,\mathscr{T}_u)$ . 選擇 $O_1=\mathbb{R}^2,\Psi=$恆等映射, 則 $\{(O_1,\Psi_1)\}$ 便是只有一個圖的圖冊, M是平凡流形.
+\\ 故 $\mathbb{R}^n$ 是n維平凡流形.
+\subsubsection{微分同胚 Diffeomorphism}
+微分流形 $M$ 與 $M'$ 稱為互相微分同胚(diffeomorphic to each other), 若 $\exists \ f: M \rightarrow M'$, 滿足:
+\begin{itemize}
+  \item f是一一到上的
+  \item $f$ 與 $f^{-1}$ 是 $C^{\infty}$ 的
+\end{itemize}
+這樣的f稱為從 $M$ 到 $M'$ 的微分同胚映射, 簡稱微分同胚(diffeomorphism).
+\subsubsection{標量場 Scalar Field}
+$f:M \rightarrow \mathbb{R}$ 稱為M上的函數(function on M)或M上的標量場(scalar field on M).
+\\ 若 $f \ is \ C^{\infty} $, 則稱為M上的光滑函數.
+\subsubsection{閉集合}
+閉集合是開集合的補集.
+\\ 集合可開可不開可閉, 也可以既開又閉(如集合本身與空集).
+\subsection{Tangent and Tangent Fields}
+\subsubsection{矢量空間 Vector Space}
+實數域的一個矢量空間是一個集合V配以兩個映射, 即 $V \times V \rightarrow V$ (Addition) 和 $\mathbb{R}\times V \rightarrow V $ (Scalar multiplication), 滿足:
+\begin{itemize}
+  \item $v_1+v_2=v_2+v_1,\ \forall \ v_1, \ v_2 \in V $
+  \item $(v_1+v_2)+v_3=v_1+(v_2+v_3),\ \forall \ v_1,\ v_2,\ v_3 \in V$
+  \item $\exists\  0\in V,\ s.t.\ 0+v=v,\ \forall \ v \in V$
+  \item $a_1(a_2 v)=a_1 a_2 v,\ \forall\ v\in V ,\ a_1,\ a_2 \in \mathbb{R}$
+  \item $(a_1+a_2)v=a_1 v+a_2 v,\ \forall\ v\in V ,\ a_1,\ a_2 \in \mathbb{R}$
+  \item $a(v_1+v_2)=av_1+av_2,\ \forall\ v_1,\ v_2 \in V ,\ a \in \mathbb{R}$
+  \item $1\cdot v=v,\ \forall \ v \in V$
+\end{itemize}
+由此可以推出:
+\begin{itemize}
+  \item $0 \cdot v=0,\ \forall\ v \in V$
+  \item $\forall\ v \in V,\ \exists \ u \in V,\  s.t.\  v+u=0$
+\end{itemize}
+ 對於流形M上的一點p, 存在一個映射 $f$ 到標量場 $\mathbb{R}$ 產生一個函數 $F$, 也可以存在另一個映射 $f'$ 到另一個標量場 $\mathbb{R}' $ 產生另一個 $F'$.
+\\ 注意到p點存在的基本結構 (或者稱為矢量) 是不會改變的, 故可以把p點的矢量看作映射 $f$ 到標量場 $\mathbb{R}$ 的一個新的映射 $v$.
+\subsubsection{矢量 Vector}
+以 $\mathscr{F}_M$ 代表流形M上所有光滑函數的集合, 則 $f \in \mathscr{F}_M$.
+\\映射 $v: \ \mathscr{F}_M \rightarrow \mathbb{R}$ 稱為點 $p\in M$ 的一個矢量, 若 $\forall\ f, \ g\ \in \mathscr{F}_M,\ \alpha,\ \beta \in \mathbb{R}$, 有:
+\begin{description}
+  \item[線性性:]$v(\alpha f+\beta g)=\alpha\  v(f)+\beta\ v(g)$
+  \item[萊布尼茲律:]$v(fg)=f|_p \ v(g)+g|_p \ v(f)$
+\end{description}
+由以上定義可知, 給定一個映射與標量場就可以得到一個p點的矢量 (矢量就是對 $F$ 或者記做 $f$ 在某一個方向求導), 故理論上p點存在著無限多的矢量.\\
+設 $(O,\Psi)$ 是座標係, 其座標是 $x^\mu$, 則M上任一光滑函數 $f\in \mathscr{F}_M$ 與 $(O,\Psi)$ 結合得n元函數 $F(x^1,x^2,\cdots,x^n)$, 借此可給O中任一點p定義n個矢量, 記做 $X_\mu,\ (\mu =1,2,\cdots,n)$, 它作用於任一 $f\in \mathscr{F}_M$ 的結果 $X_\mu(f)$ 定義為如下實數: $$X_\mu(f):=\frac{\partial F(x^1,x^2,\cdots,x^n)}{\partial x^\mu}|_p $$ 其中 $\frac{\partial F(x^1,x^2,\cdots,x^n)}{\partial x^\mu}|_p$ 是 $\frac{\partial F(x^1,x^2,\cdots,x^n)}{\partial x^\mu}|_{(x^1(p),x^2(p),\cdots,x^n(p))}$ 的簡寫.
+\\可用 $f$ 代替 $F$, 故該式簡化為:$$X_\mu(f):=\frac{\partial f(x)}{\partial x^\mu}|_p ,\ \forall \ f\in \mathscr{F}_M $$\\
+
+  定理: 以 $V_p$ 代表M中p點的所有矢量的集合, 則 $V_p$ 是n維矢量空間 (n是M的維數),
+  即: $$dim\ V_p = dim\ M = n$$
+
+
+\subsubsection{座標基底 Coordinate Basis}
+座標域內任一點p的 $\{X_1,\cdots, X_n\}$ 稱為 $V_p$ 的一個座標基底, 每個 $X_\mu$ 是一個座標基矢 (coordinate basis vector), $v=v^\mu \ X_\mu ,\ v \in V_p$ 用 $\{X_\mu \}$ 線性表出的係數 $v^\mu$ 稱為 $v$ 的一個座標分量 (coordinate components).\\
+
+定理:	 設 $\{ x^{\mu} \}$ 與 $\{ x^{'\nu}\}$ 為兩個座標係, 其座標域的交集非空, p為交集內一點, $v\in V_p$, $\{ v^\mu\}$ 與 $\{ v^{'\nu}\}$ 是 $v$ 在這兩個座標係的座標分量, 則: $$v^{'\nu}=\frac{\partial x^{'\nu}}{\partial x^\mu}|_p \ v^\mu $$
+  其中 $x^{'\nu}$ 是兩個座標係間座標變換函數 $x^{'\nu}(x^\sigma)$ 的縮寫.
+  \\ 這是矢量變換式, 常用做矢量定義. 
+\subsubsection{曲線 Curve}
+設 $ I$ 是 $\mathbb{R}$ 的一個區間, 則 $C^r$  類映射 $C:\ I \rightarrow M$ 稱為M上的一條 $C^r$ 類的曲線.
+\\ 對任一 $t\in I$, 有唯一的點 $C(t)\in M$ 與之對應, t稱為曲線的參數 (parameter).
+\\ 這裡的曲線不同於平常意義的曲線, 而是從 $\mathbb{R}$ 到M上的一個映射.
+\subsubsection{重參數化 Reparametrization}
+曲線 $C':\ I'\rightarrow M$ 稱為 $C:\ I\rightarrow M $ 的重參數化, 若 $\exists$ 到上映射 $\alpha :\ I\rightarrow I'$, 滿足:
+\begin{itemize}
+  \item $C=C' \circ \alpha$
+  \item 由 $\alpha$ 誘導的函數 $t'=\alpha (t)$ 有處處非零的導數
+\end{itemize}
+即: $C(t)=C'(\alpha(t))=C'(t') ,\ \forall \ t\in I$.\\
+映射 $\alpha$ 的到上性保證 $C'[I']=C[I]$, 即兩曲線映射有相同的像.
+\\ $C[I]$ 也常記做 $C[t]$, 以表明曲線的參數是t.
+\\ 設 $(O,\Psi)$ 是座標係, $C[I]\subset O$, 則 $\Psi \circ C$ 是從 $I \subset \mathbb{R}$ 到 $\mathbb{R}^n$ 的映射, 相當於n個一元函數 $x^\mu=x^\mu(t)$. 
+\\這n個等式稱為曲線的參數方程或參數表達式或參數式. 如圓的參數方程.
+\subsubsection{座標線 Coordinate Line}
+設 $(O,\Psi)$ 為座標係, $x^\mu$ 為座標, 則O的子集 $\{p\in O\ |\ x^2(p)=Constant, \cdots, x^n(p)=Constant \}$ 可以看成以 $x^1$ 為參數的一條曲線, 叫做 $x^1$ 座標線 (Coordinate line).
+\subsubsection{切矢 Tangent Vector}
+設 $C(t)$ 是流形M上的 $C^1$ 曲線, 則線上 $C(t_0)$ 點的切於 $C(t)$ 的切矢T是 $C(t_0)$ 點的矢量, 它對 $f\in \mathscr{F}_M$ 的作用定義為 $$ T(f):=\frac{d (f \circ C)}{dt}|_{t_0}=\frac{df(C(t))}{dt}|_{t_0}=\frac{\partial}{\partial t}|_{C(t_0)}. \ \forall \ f\in \mathscr{F}_M$$
+\\ 
+
+定理: 設曲線 $C(t)$ 在坐標系中的參數式為 $x^\mu=x^\mu(t)$, 則線上任一點的切矢 $\frac{\partial}{\partial t}$ 在該座標基底的展開式為: 
+$$\frac{\partial}{\partial t}=\frac{dx^\mu(t)}{dt} \frac{\partial}{\partial x^\mu} $$
+\\ 即曲線 $C(t)$ 的切矢 $\frac{\partial}{\partial t}$ 的座標分量是 $C(t)$ 在該系的參數式 $x^\mu(t)$ 對t的導數.
+\\ $V_p$ 中任一元素可視為過p的某曲線的切矢, 因此p點的矢量亦稱為切矢量 (Tangent vector), $\nu$ 則稱為p點的切空間 (Tangent space).
+\subsubsection{矢量場 Vector Field}
+設A是M的子集, 若給A中每點指定一個矢量, 就得到一個定義在A上的矢量場.
+\\ 如非自相交曲線C(t)上每點構成的切矢構成C(t)上的矢量場.
+\\ M上的矢量場 $\nu$ 稱為 $C^\infty$ 類 (光滑)的, 若 $\nu$ 作用於 $C^\infty$ 類函數的結果為 $C^\infty$ 類函數, 即 $\nu(f)\in \mathscr{F}_M,\ \forall\ f\in\mathscr{F}_M$.
+\subsubsection{對易子 Commutator}
+兩個光滑矢量場 $u$ 與 $\nu$ 的對易子是一個光滑矢量場 $[u,\nu]$, 定義為: $$ [u,\nu](f):=u(\nu(f))-\nu(u(f))$$
+\\ 在每點 $p\in M$ 的定義 $[u,\nu]\ |_p $: 
+ $$[u,\nu]|_p(f):=u|_p(\nu(f))-\nu|_p(u(f)) $$
+\\
+
+定理: 設 $\{ x^\mu\}$ 為任一座標係, 則 $[\frac{\partial}{\partial x^\mu},\frac{\partial}{\partial x^\nu}]=0$.
+\subsubsection{積分曲線 Intergral curve}
+曲線C(t)叫矢量場 $\nu$ 的積分曲線, 若其上每點的切矢等於該點的 $\nu$ 值.
+\subsubsection{群 Group}
+一個群是一個集合G配以滿足以下條件的映射 $G\times G \rightarrow G$ (叫群乘法, 元素 $g_1$ 和 $g_2$ 的乘積記做 $g_1 g_2$):
+\begin{itemize}
+  \item $(g_1 g_2)g_3=g_1(g_2g_3),\ \forall\ g_1,\ g_2,\ g_3 \in G$
+  \item $\exists$ 恆等元 (Identity element) $e\in G$, s.t. $eg=ge=g,\ \forall\ g\in G$
+  \item $\forall\ g\in G,\ \exists$ 逆元 (Inverse element) $g^{-1}\in G$, s.t. $g^{-1}g=gg^{-1}=e$
+\end{itemize}
+\subsubsection{單參微分同胚群 One-parameter Group of Diffeomorphisms}
+$C^\infty$ 映射 $\phi:\ \mathbb{R}\times M \rightarrow M$ 稱為M上的一個單參微分同胚群, 若:\begin{itemize}
+  \item $\phi_t:M\rightarrow M$ 是微分同胚 $\forall\ t \in \mathbb{R}$
+  \item $\phi_t \circ \phi_s=\phi_{t+s},\ \forall\ t,s \in \mathbb{R}$
+\end{itemize}
+\subsection{Dual Vector Fields}
+設 $V$ 是 $\mathbb{R}$ 上的有限維矢量空間. 線性映射 $\omega:\ V\rightarrow \mathbb{R}$ 稱為 $V$ 上的對偶矢量 (Dual vector). $V$ 上全體對偶矢量的集合稱為 $V$ 的對偶空間, 記做 $V^*$.
+\\ 由於 $V$ 上有加法與數乘, 對映射 $\omega$ 的線性要求有確切含義:
+\begin{itemize}
+  \item $\omega(\alpha\nu+\beta u)=\alpha \omega (\nu)+\beta \omega(u),\ \forall\ \nu,\ u\in V,\ \alpha,\ \beta\in\
+   \mathbb{R}$
+\end{itemize}
+
+
+定理: $V^*$ 是矢量空間, 且 $dim\ V^*=dim\ V$.
+\\設 $\{ e_\mu\}$ 是 $V$ 的一組基矢, 則 $V^*$ 的基矢定義為 $e^{\mu*}(e_\nu)=\delta^\mu_\nu$, $\{ e^{\mu*}\}$ 叫做 $V^*$ 的對偶基底.\\
+\\兩個矢量空間是同構的 (Isomorphic), 若二者存在一一到上的線性映射 (同構映射), 且維數相同.
+\\
+
+定理: 若矢量空間 $V$ 中有一基底變換 $e_\mu=A^\nu_\mu e_\nu$, 以 
+$A^\nu_\mu$ 為元素排成的方陣記做A, 則對應的矢量變換是 
+$$e^{'\mu*}=(\tilde A^{-1})_\nu^\mu e^{\nu *} $$ 其中 $\tilde A$ 是 $A$ 的轉置矩陣, 
+$\tilde A^{-1}$ 是 $\tilde A$ 的逆.
+\\ 因 $p\in M$ 有矢量空間 $V_p$, 故也有 $V^*_p$. \\
+若在M上或 ($A\subset M$) 上每點指定一個對偶矢量, 就得到M或A上的一個對偶矢量場.\\
+ M上的對偶矢量場 $\omega$ 是光滑的, 若 $\omega (\nu)\in \mathscr{F}_M\ \forall$ 光滑矢量場 $\nu$.
+\\ 若 $f\in \mathscr{F}_M$, 則 $f$ 自然的誘導出M上的一個對偶矢量場, 記做 $df$. 定義為: $$df|_p:=v(f),\ \forall\ v\in V_p $$
+且滿足萊布尼茲律 $d(fg)|_p=f|_p(dg)+g|_p(df)$.
+\\ 設 $(O,\Psi)$ 是一座標係, 則第 $\mu$ 個座標 $x^\mu$ 可以看作O上的函數, 於是 $dx^\mu$ (可以看作特殊的 $df$) 是定義在 $O$ 上的對偶矢量場.
+\\設 $p\in O$, $\frac{\partial}{\partial x^\nu}$ 是 $V_p$ 的第 $\nu$ 個座標基矢, 則在p點有 $dx^\mu(\frac{\partial}{\partial x^\nu})=\frac{\partial}{\partial x^\nu}(x^\mu)=\delta^\mu_\nu$, 由此可見 $\{ dx^\mu\}$ 正是與座標基底 $\{ \frac{\partial}{\partial x^\nu} \}$ 對應的對偶座標基底.
+\\
+
+定理: 設 $(O,\Psi)$ 是一座標係, $f$ 是 $O$ 上的光滑函數, $f(x)$ 是 $f\circ \Psi^{-1}$ 對應的n元函數 $f(x^1, x^2, \cdots, c^n)$ 的簡寫, 則 $df$ 可用對偶座標基底 $\{ dx^\mu\}$ 展開為: $$df=\frac{\partial f(x)}{\partial x^\mu}dx^\mu,\ \forall\ f\in \mathscr{F}_O $$.
+\\
+
+定理: 設座標係 $\{ x^\mu\}$ 與 $\{ x'^\nu\}$ 的座標域有交, 則交域中任一點p的對偶矢量 $\omega$ 在兩座標係中的分量 $\omega_\mu$ 與 $\omega'_\nu$ 的變換關係是: $$\omega'_\nu=\frac{\partial x^\mu}{\partial x'^\nu}|_p \omega_\mu $$
+\subsection{Tensor Fields}
+矢量空間 $V$ 上的一個 $(k,l)$ 型張量 (Tensor of type(k,l)), 是一個多重線性映射:$$T:V^*\times V^*\times\cdots\times V^* \times V\times V\times \cdots \times V\rightarrow \mathbb{R} $$
+輸入k個對偶矢量與l個矢量, 便產生一個實數, 且此實數對於每一個輸入值都線性依賴.
+\begin{itemize}
+  \item $V$ 上的對偶矢量是 $V$ 上的 (0,1)型張量
+  \item $V$ 的元素 $\nu$ 可以看作 $V$ 上的(1,0)型張量
+  \item 用 $\mathscr{F}_V$ 表示 $V$ 上全體(k,l)型張量的集合, 故 $V\in\mathscr{F}_V(1,0),\ V^*\in \mathscr{F}_V(0,1).$
+\end{itemize}
+ 設 $T\in \mathscr{F}_V(1,1)$, 則 $T: V^* \times V\rightarrow \mathbb{R}$. 但是T也可以看成另一種映射. 因為 $\forall\ \omega \in V^*,\ \nu\in V$ 有 $T(\omega;\nu)\in\mathbb{R}$, 故 $T(\omega;\ \bullet)$ 可以把一個矢量線性的變為實數, 故 $T(\omega;\ \bullet)\in V^*$. 同理, $T(\bullet;\ \nu)$ 可以把一個對偶矢量線性的變為實數, $T(\bullet;\ \nu)\in V$.
+\subsubsection{張量積 Tensor Product}
+$V$ 上的 $(k,\ l)$ 與 $(k';\ l')$ 型張量 $T$ 與 $T'$ 的張量積 $T\otimes T'$ 是一個 $(k+k';\ l+l')$ 型張量, 定義為: $$T\otimes T'(\omega^1,\cdots, \omega^k,\omega^{k+1}, \cdots,\omega^{k+k'};\ \nu_1, \cdots, \nu_l,\nu_{l+1},\cdots,\nu_{l+l'} ) := $$$$ T(\omega^1,\cdots,\omega^k;\ \nu_1,\cdots,\nu_l) \ T'(\omega^{k+1},\cdots,\omega^{k+k'};\ \nu_{l+1},\cdots,\nu_{l+l'})$$
+\\
+
+定理: $\mathscr{F}_V(k,l)$ 是矢量空間, 且 $dim\ \mathscr{F}_V(k,l)=n^{k+l}$ $$T=T^{\mu\nu}_ {\quad{\sigma} }e_\mu \otimes e_\nu \otimes e^{\sigma*}, \ T^{\mu\nu}_ {\quad{\sigma} }=T(e^{\mu *},e^{\nu*};e_\sigma)$$
+\subsubsection{縮並 Contraction}
+(1,1)型張量 $T$ 可以看成從 $V$ 到 $V$ 的線性映射, 即線性代數中的線性變換.
+\\$T$ 在任一兩個基底的分量互為相似矩陣 $T'^\mu_{\quad\nu}=(A^{-1}TA)^\mu_{\ \nu}$.
+\\則它們的跡 (Trace) $T'^\mu_{\quad \mu}$ 是相同的. $T'^\mu_\mu=(A^{-1})^\mu_{\ \rho}T^\rho_{\ \sigma}A^\sigma_{ \ \mu}=\delta^\sigma_{\ \rho}T^\rho_{\ \sigma}=T^\rho_{\ \rho}$.
+\\則 $T\in \mathscr{F}_V(k,l)$ 的第 $i$ 個上標與第 $j$ 個下標的縮並 (CT) 定義為: $$C^i_jT:=T(\cdot,\cdots,e^{\mu*},\cdot,\cdots;\ \cdot,\cdots,e_\mu,\cdot,\cdots)\in\mathscr{F}_M(k-1,l-1) $$
+\begin{itemize}
+  \item $C(\mu\otimes\omega)=\omega_\mu\nu^\mu=\omega(\mu)=\mu(\omega)$
+  \item $C^1_2(T\otimes \nu )=T(\bullet,\nu),\ \forall\ \nu\in V,\ T\in\mathscr{F}_V(0,2)$
+  \item $C^2_2(T\otimes \omega)=T(\bullet,\omega;\ \bullet),\ \forall\ \omega\in V^*,\ T\in\mathscr{F}_V(2,1)$
+\end{itemize}
+在流形中, 由於座標的出現, 可將(2,1)型張量改寫為: $$T=T^{\mu \nu }_{\quad \sigma}\frac{\partial }{\partial x^\mu}\otimes \frac{\partial}{\partial x^\nu}\otimes dx^\sigma,\ T^{\mu \nu }_{\quad \sigma}=T(dx^\mu,dx^\nu,\frac{\partial}{\partial x^\sigma})$$
+\\ 自然的, 在流形M上每一點指定一個(k,l)型張量, 就會得到M上的一個張量場.
+\\
+
+定理: (k,l)型張量在兩個座標係中的分量的變換關係 (張量變換律): $$T'^{\mu_1 \cdots \mu _k}_{\quad\quad \quad \nu_1\cdots \nu _l}=\frac{\partial x'^{\mu_1}}{\partial x^{\rho _1}}\cdots \frac{\partial x^{\sigma_l}}{\partial x'^{\nu _l}} T^{\rho_1\cdots\rho_k}_{\quad\quad\ \sigma_1\cdots\sigma_l} $$
+\subsection{Metric Tensor Fields}
+矢量空間 $V$ 上的一個度規 (Matric) $g$ 是 $V$ 上的一個對稱的非退化的(0,2)型張量.\begin{description}
+  \item[對稱:] $g(\nu,u)=g(u,\nu),\ \forall\ \nu,u \in V$
+   \item[非退化:] $g(\nu,u)=0,\ \forall\ u\in V\Rightarrow \nu=0\in V$
+   \item[正定性:] $\forall\ v\in V,\ g(v, v)\geqslant 0$
+\end{description}
+$\nu\in V$ 的長度 (Length)或大小 (Magnitude)定義為 $|\nu|:=\sqrt{|g(\nu,u)|}$.
+\\矢量 $n,\nu\in V$ 是互相正交的 (Orthogonal), 若 $g(\nu,u)=0$.
+\\ $V$ 的基底 $\{ e_\mu\}$ 是正交歸一的 (Orthonormal), 若任二矢量正交且每一個基矢 $e_\mu$ 滿足 $g(e_\mu,e_\mu)=\pm 1$.
+\\
+
+定理: 任何帶度規的矢量空間都有正交歸一基底. 度規寫為對角矩陣時 $+1$ 與 $-1$ 的個數與所選正交歸一基底無關.
+\subsubsection{號差 Signature}
+度規用正交歸一基底寫成對角矩陣後, 根據對角元分為:\begin{description}
+  \item[正定的 (Positive Definite)或 黎曼的 (Riemannian) :] 對角元全為 $+1$.
+  \item[負定的 (Negative Definite) :] 對角元全為 $-1$.
+  \item[不定的 (Indefinite) :] 其餘度規.
+  \item[洛倫茲的 (Lorentzian) :] 只有一個對角元為 $-1$ 的不定度規.
+\end{description}
+對角元之和叫度規的號差.
+帶洛倫茲度規 $g$ 的矢量空間 $V$ 的元素 $\nu$ 分為:
+\begin{description}
+  \item[類空矢量 (Spacelike vector) :] $g(\nu,\nu)>0$
+   \item[類時矢量 (Timelike vector) :] $g(\nu,\nu)<0$
+    \item[類光矢量 (Lightlike vector or Null vector) :] $g(\nu,\nu)=0$
+\end{description}
+流形M上對稱的, 處處非退化的(0,2)型張量場叫度規張量場.
+\\ 可以用度規場定義曲線長度. 如在二維歐式空間, 曲線 $C(t)$ 在自然座標係 $\{ x, y\}$ 的參數式為 $x=x(t),\ y=y(t)$, 則曲線元段線長的平方 $(dl)^2$ 為 $$dl^2=dx^2+dy^2=[(\frac{dx}{dt})^2+(\frac{dy}{dt})^2]dt^2=|T |^2dt^2  $$
+\\其中 $T$ 是 $C(t)$ 的切矢.
+\\故 $dl=|T|dt$, $C(t)$ 的線長為 $l=\int |T|dt$.
+\\ 設流形 $M$ 上有洛倫茲度規場 $g$, 則 $M$ 上的類空, 類光與類時曲線 $C(t)$ 的線長的定義為: $$ l:= \int \sqrt{|g(T,T)|}dt$$
+\\ 由於線長的定義不涉及座標係, 故線長與座標係無關. 但是可以借助座標係計算, 因為 $$g(T,T)=g(T^\mu \frac{\partial}{\partial x^\mu},T^\nu \frac{\partial}{\partial x^\nu})=T^\mu T^\nu g(\frac{\partial}{\partial x^\mu}, \frac{\partial}{\partial x^\nu})=\frac{dx^\mu}{dt} \frac{dx^\nu}{dt}g_{\mu \nu}$$
+引入線元 (Line element) $ds^2=g_{\mu\nu}dx^\mu dx^\nu$, 則元線長 $dl=\sqrt{|g_{\mu \nu }dx^\mu dx^\nu|}=|ds|$, 線長 $l=\int \sqrt{ds^2}$ (類空曲線), $\int \sqrt{-ds^2}$ (類時曲線).
+\subsubsection{時空 Spacetime}
+設流形 $M$ 上給定度規場 $g$, 則 $(M,g)$ 叫廣義黎曼空間 「若 $g$ 為正定, 叫黎曼空間 (Riemannian space); 若 $g$ 為洛倫茲, 叫偽黎曼空間 (pseudo-Riemannian space) 或者時空 (Spacetime)」.
+\subsubsection{歐式空間 Euclidean Spacetime}
+設 $\{ x\mu\}$ 是 $\mathbb{R}^n$ 的自然座標係, 在 $\mathbb{R}^n$ 上定義度規張量場 $\delta$ 為: $$\delta:=\delta_{\mu\nu}dx^\mu\otimes dx^\nu,\ \delta_{\mu\nu} =\begin{cases}0&\nu \neq \mu \\ +1&\mu =\nu \end{cases} $$ 
+則 $(\mathbb{R}^n,\delta)$ 稱為n維歐式空間, $\delta$ 稱為歐式度規.
+\\n 維歐式空間滿足的座標係叫笛卡兒 (Cartesian) 座標係或直角座標係.
+\subsubsection{閔氏空間 Minkowski Spacetime}
+設 $\{ x\mu\}$ 是 $\mathbb{R}^n$ 的自然座標係, 在 $\mathbb{R}^n$ 上定義度規張量場 $\eta$ 為: $$\eta:=\eta_{\mu\nu}dx^\mu\otimes dx^\nu,\ \eta_{\mu\nu} =\begin{cases}0&\nu \neq \mu \\ +1&\mu =\nu\neq 0 \\ -1&\mu=\nu=0\end{cases}$$ 
+則 $(\mathbb{R}^n,\eta)$ 稱為n維閔式空間, $\eta$ 稱為閔式度規.
+\\n 維閔式空間滿足的座標係叫偽笛卡兒 (Pseudo-Cartesian) 座標係或洛倫茲 (Lorenzian) 座標係.
+\subsection{The Abstract Index Notation}
+\textbf{應當注意, 抽象指標記號在目前的廣義相對論研究中並不常用.}
+\\ 抽象指標記號用\textbf{英文字母}代表矢量張量等, 不可求和, 與座標係無關. 具體指標用\textbf{希臘字母}代表對分量使用愛因斯坦求和, 於座標係的選擇有關.
+\\ 將矢量記為 $\nu^a$, 對偶矢量記為 $\nu_b$, $(k,l)$ 型張量記為 $T^a_{\ b}$.
+\\ 上指標叫逆變指標 (Contravariant index), 下指標叫協變指標 (Conariant index). 矢量叫逆變矢量, 對偶矢量叫協變矢量.
+\\ $T\in \mathscr{F}_V(0,2)$ 稱為對稱的 (Symmetic), 若 $T(\nu,u)=T(u,\nu),\ \forall\ u,\nu\in V$.
+\\(0,2)型張量 $T_{ab}$ 的對稱部分 ($T_{(ab)}$) 於反稱部分 ($T_{[ab]}$) 分別定義為: $$T_{(ad)}:=\frac{1}{2}(T_{ab}+T_{ba}),\ T_{[ab]}:=\frac{1}{2}(T_{ab}-T_{ba}) $$
+\\ $T\in \mathscr{F}_V(0,l)$ 稱為全對稱的若 $T_{a_1\cdots a_l}=T_{(a_1\cdots a_l)}$, $T$ 稱為全反稱的若 $T_{a_1\cdots a_l}=T_{[a_1\cdots a_l]}$.
+\\ 任一(0,2)型張量可以看為對稱於反稱部分的和, 但對 $(0,l) \ (l>2)$ 型張量不成立.
+
+\newpage
+\section{Intrinsic Curvature Tensors}
+\subsection{Derivative Operator}
+以 $\mathscr{F}_M$ 代表流形 $M$ 上全體 $C^\infty$ 的 $(k,l)$ 型張量場的集合「函數 $f$ 可以看作 $(0,0)$ 型張量場(標量場), 故 $\mathscr{F}_M(0,0)\equiv \mathscr{F}_M$.」.映射 $\nabla:\ \mathscr{F}_M(k,l)\rightarrow \mathscr{F}_M(k,l+1)$ 稱為 $M$ 上的導數算符, 若滿足:
+\begin{itemize}
+  \item 線性性: $$\nabla_a(\alpha T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l}+\beta S^{b_1\cdots b_k}_{\quad\quad c_1\cdots c_l})=\alpha \nabla_a T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l}+\beta \nabla_a S^{b_1\cdots b_k}_{\quad\quad c_1\cdots c_l} $$ $$ \forall\  T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l}, S^{b_1\cdots b_k}_{\quad\quad c_1\cdots c_l}\in \mathscr{F}_M(k,l),\ \alpha, \beta \in \mathscr{R}$$
+  \item 萊布尼茲律: $$\nabla_a ( T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l} S^{b_1'\cdots b_k'}_{\quad\quad c_1'\cdots c_l'}) = T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l}\nabla_a S^{b_1'\cdots b_k'}_{\quad\quad c_1'\cdots c_l'}+ S^{b_1'\cdots b_k'}_{\quad\quad c_1'\cdots c_l'}\nabla_a  T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l}$$ $$ \forall\  T^{b_1\cdots b_k}_{\quad \quad c_1\cdots c_l} \in \mathscr{F}_M(k,l),\ S^{b_1'\cdots b_k'}_{\quad\quad c_1'\cdots c_l'}\in \mathscr{F}_M(k',l') $$
+  \item 與縮並可以交換順序: $\nabla \circ C=C\circ \nabla$ or $\nabla_a(\nu^b \omega_b)=\nu^b\nabla_a\omega_b +\omega_b\nabla_a\nu^b$.
+  \item $\nu(f)=\nu^a\nabla_a f,\ \forall\ f\in\mathscr{F}_M,\ \nu\in\mathscr{F}_M(k,l)$
+  \item \textbf{無撓 (Torsion free) 性}: $\nabla_a \nabla_bf=\nabla_b\nabla_af$. 若滿足此條件則叫做無撓導數算符, 否則叫有撓導數算符.
+\end{itemize}
+\\
+
+定理: 設 $p\in M,\ \omega_b, \omega_b' \in \mathscr{F}_M(0,1)$ 滿足 $\omega_b|_p=\omega_b'|_p$, 則 $$[(\tilde\nabla_a-\nabla_a)\omega_b']_p=[(\tilde\nabla_a-\nabla_a)\omega_b]_p $$
+$(\tilde\nabla_a-\nabla_a)$ 把 $p$ 點的對偶矢量 $\omega_b$ 變為 $p$ 點的(0,2)型張量 $[(\tilde\nabla_a-\nabla_a)\omega_b]_p$.
+\\
+
+定理: $\nabla_a\omega_b=\tilde\nabla_a\omega_b-C^c_{\ ab}\omega_b$
+\\ 由無撓性得 $C^c_{\ ab}=C^c_{\ ba}$
+\\
+
+定理: $\nabla_a\nu^b=\tilde\nabla_a\nu^b+C^b_{\ ac }\nu^c$
+\\ 與之類似, $\nabla_a$ 作用到(1,1)型張量可表示為 $\nabla_a T^b_{\ c}=\tilde\nabla_aT^b_{\ c}+C^b_{\ ad}T^d_{\ c}-C^d_{\ ac}T^b_{\ d}$.
+\subsubsection{普通導數算符 Ordinary Derivative}
+ 選定導數算符 $\nabla_a$ 後得流形 $M$ 可記為 $(M,\nabla_a)$.
+\\ 設 $\{ x^\mu\}$ 是 $M$ 上的一個座標係, 座標基底是 $\{ (\frac{\partial}{\partial x^\mu})^a\}$, 對偶基底是 $\{ (dx^\mu)_a\})$. 
+\\ 在座標域 $O$ 上定義映射 $\partial_a: \mathscr{F}_O(k,l)\rightarrow \mathscr{F}_O(k,l+1)$ 滿足: $\partial_a T^b_{\ c}:= (dx^\mu)_a(\frac{\partial}{\partial x^\nu})^b (dx^\sigma)_c\partial_\mu T^\nu_{\ \sigma}$ 「以(0,1)型張量 $T^b_{\ c}\in \mathscr{F}_O(1,1)$ 為例」.
+\\ $\partial_a$ 是一個依賴座標係的導數算符, 稱為該座標係的普通導數算符, 可以看作 $\nabla_a$ 的特例, 而不依賴座標係的 $\nabla_a$ 叫做協變導數 (Covariant derivative) 算符.
+\\ 顯然, $\partial_a$ 具有以下性質:\begin{itemize}
+  \item 任一座標係的 $\partial_a$ 作用於該係的任一座標基矢和任一對偶座標基矢的結果是零:$$\partial_a (\frac{\partial}{\partial x^\nu})^b=0,\ \partial_a (dx^\nu)_b=0 $$
+  \item $\partial_a\partial_b T=\partial_b\partial_a T$ 或 $\partial_{[a}\partial_{b]}T=0$
+\end{itemize}
+\subsubsection{克氏符 Christoffel Symbol}
+設 $\partial_a$ 是 $(M, \nabla_a)$ 上任意座標係的普通導數算符, 則體現 $\nabla_a$ 與 $\partial_a$ 的關係的差別的張量場 $C^c_{\ ab}$ 「把 $\partial_a$ 記做之前的 $\tilde\nabla_a$ 」叫做 $\nabla_a$ 在該座標係的克氏符嗎, 記做 $\Gamma^c_{\ ab}$.
+\\ 克氏符類似張量, 但在座標變換下不服從張量變換律, 故克氏符是依賴座標係的張量, 不是嚴格意義上的張量.
+\\  類似的, 設 $\nu^b$ 是矢量場, 則 $\partial_a\nu^b$ 也是座標依賴的張量, 把 $\partial_a\nu^b$ 在 $\partial_a$ 所在的座標係展開: $$\partial_a v^b=(dx^\mu)_a(\frac{\partial}{\partial x^\nu})^b v^\nu_{,\mu} , \ v^\nu_{,\mu}\equiv \partial_\mu v^\nu \equiv \frac{\partial v^\nu}{\partial x^\mu}$$ 
+一般強調 $v^\nu_{,\mu}$ 不構成張量, 也可以說 $\partial_a v^b$ 是座標依賴的張量, 不滿足張量變換律. 
+而 $\nabla_a v^b=v^\nu_{;\mu}(dx^\mu)_a(\frac{\partial}{\partial x^\nu})^b$ 與座標係無關, 是張量.
+\\ 
+
+定理: $v^\nu_{; \mu}=v^\nu_{, \mu}+\Gamma^\nu_{\ \mu \sigma}v^\sigma,\ \omega_{\nu\ ; \mu}=\omega_{\nu\ , \mu}-\Gamma^\sigma_{\ \mu\nu}\omega_\sigma$
+\\
+
+定理: 於縮並可以交換位置等價於 $$\nabla_a \delta^b_{\ c}=0 $$
+其中 $\delta^b_{\ c}$ 是(1,1)型張量場, 其在每一點 $p\in M$ 的定義為: $\delta^b_{\ c}v^c=v^b, \forall\ v^c\in V_p$.
+\\
+
+定理: $[u,v]^a=u(v(f))-v(u(f))=u^b\nabla_b(v^a\nabla_a f)-v^b\nabla_b(u^a\nabla_a f)=(u^b\nabla_b v^b-v^b\nabla_b u^a)\nabla_a f$, 其中 $\nabla_b$ 是任一無撓導數算符.
+\subsection{Parallel Transport of a Vector along a Curve}
+在流形 $M$ 上選定一個導數算符 $\nabla_a$ 後, 就有矢量沿曲線平移的概念.
+\\ 設 $v^a$ 是沿曲線 $C(t)$ 的矢量場. $v^a$ 稱為沿 $C(t)$ 平移的 「Parallelly transport along C(t)」, 若 $T^b\nabla_b v^a=0$, 其中 $T^a\equiv (\frac{\partial}{\partial t})^a$ 是曲線的切矢.
+\\  
+ 
+ 定理: 設曲線 $C(t)$ 位於座標係 $\{ x^\mu\}$ 的座標域內, 曲線的參數式是 $x^\mu(t)$. 令 $T^a\equiv (\frac{\partial}{\partial t})^a$, 則沿 $C(t)$的矢量場 $v^a$ 滿足: $$T^b \nabla_b v^a= (\frac{\partial}{\partial x^\mu})^a (\frac{dv^\mu}{dt}+\Gamma^\mu_{\ \nu\sigma}T^\nu v^\sigma) $$
+
+
+  定理: 曲線上一點 $C(t_0)$ 及該點的一個矢量決定唯一的沿曲線平移的矢量場.
+\\  可知平移的定義 $T^b \nabla_b v^a=0$ 等價於 $\frac{dv^\mu}{dt}+\Gamma^\mu_{\ \nu \sigma}T^\nu v^\sigma=0$, 這是n個一階微分方程, 給定初始條件便可以解出.
+\\  設 $p,q \in M$ , 則 $V_p$ 與 $V_q$ 是兩個矢量空間, 二者的元素無法比較, 但若有一個曲線 $C(t)$ 聯接 $p,q$, 則可以定義一個由 $V_p$ 到 $V_q$ 的映射: $\forall\ v^a \in V_p$ 在 $C(t)$ 上存在唯一的平移矢量場, 它在q點的值定義為 $v^a$ 的像. 當然, 這是一個曲線依賴的映射, 但是 $C(t)$ 的存在使得還無關係的 $V_p$ 與 $V_q$ 發生了某種關係, 這叫聯絡 (Connection).
+\subsection{Derivative Operator Associated with a Metric}
+若 $M$ 上還指定度規 $g_{ab}$, 矢量之間就可以談論內積, 故補充以下要求: 設 $u^a,v^a$ 為沿 $C(t)$ 平移的矢量場, 則 $u^a v_a\equiv g_{ab}u^a v^b$ 在 $C(t)$ 上是常數. 設 $T^a$ 為曲線 $C(t)$ 的切矢, 則這一要求等價於: $$0=T^c\nabla_c(g_{ab}u^av^b)=g_{ab}u^aT^c\nabla_c v^b+g_{ab}v^bT^c\nabla_cu^a+u^av^bT^c\nabla_vg_{ab}=u^av^bT^c\nabla_c g_{ab} $$
+由於對任意曲線與矢量場成立, 故 $\nabla_cg_{ab}=0$.
+\\ 
+
+定理: 流形M上選定度規場 $g_{ab}$ 後, 存在唯一的 $\nabla_a$ 使 $\nabla_a g_{ab}=0$. 滿足 $\nabla_a g_{ab}=0$ 的 $\nabla_a$ 稱為與 $g_{ab}$ 適配或相容的導數算符.
+
+  
+\subsection{Geodesic}
+uhguhu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{CJK}		
+\end{document}
